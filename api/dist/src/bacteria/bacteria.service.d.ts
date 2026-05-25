@@ -7,25 +7,30 @@ export declare class BacteriaService {
         id: number;
         name: string;
         description: string;
+        gram: string;
     }[]>;
     create(data: BacteriaDto): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     }>;
     findOne(id: number): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     } | null>;
     update(id: number, data: BacteriaDto): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     }>;
     delete(id: number): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     }>;
 }

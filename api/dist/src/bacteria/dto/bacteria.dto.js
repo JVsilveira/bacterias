@@ -5,6 +5,7 @@ class BacteriaDto {
     id;
     name;
     description;
+    gram;
 }
 exports.BacteriaDto = BacteriaDto;
 //# sourceMappingURL=bacteria.dto.js.map

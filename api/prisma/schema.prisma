@@ -11,4 +11,5 @@ model Bacteria {
   id          Int    @id @default(autoincrement())
   name        String @db.VarChar(100)
   description String
+  gram        String @db.VarChar(8)
 }

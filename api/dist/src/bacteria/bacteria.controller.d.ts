@@ -7,25 +7,30 @@ export declare class BacteriaController {
         id: number;
         name: string;
         description: string;
+        gram: string;
     }[]>;
     findOne(id: string): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     } | null>;
     create(data: BacteriaDto): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     }>;
     update(id: string, data: BacteriaDto): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     }>;
     delete(id: string): Promise<{
         id: number;
         name: string;
         description: string;
+        gram: string;
     }>;
 }
