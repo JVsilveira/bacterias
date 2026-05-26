@@ -9,7 +9,7 @@ interface Bacteria {
 }
 
 export default async function Bacteria() {
-  const response = await fetch("http://localhost:3001/bacteria")
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bacteria`)
   const data: Bacteria[] = await response.json()
 
   return (
