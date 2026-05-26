@@ -1,0 +1,41 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  color: #ffffff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container-button-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+textarea {
+  resize: none;
+  border-radius: 4px;
+  background-color: #cf94c6;
+  height: 100px;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+select,
+input {
+  padding: 8px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  background-color: #cf94c6;
+  color: #ffffff;
+}
+
+label {
+  font-weight: bold;
+  color: #ffffff;
+}
