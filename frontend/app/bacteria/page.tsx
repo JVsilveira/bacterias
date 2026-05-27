@@ -40,9 +40,7 @@ export default async function Bacteria({ searchParams }: PageProps) {
           data.map((bacterium) => (
             <li key={bacterium.id} className="bacteria-item">
               <h2>{bacterium.name}</h2>
-
               <p>{bacterium.description}</p>
-
               <p>Gram: {bacterium.gram}</p>
             </li>
           ))
