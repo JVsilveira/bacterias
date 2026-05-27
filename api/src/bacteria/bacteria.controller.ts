@@ -6,7 +6,9 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
+
 import { BacteriaService } from './bacteria.service';
 import { BacteriaDto } from './dto/bacteria.dto';
 
@@ -17,6 +19,11 @@ export class BacteriaController {
   @Get()
   async findAll() {
     return await this.bacteriaService.findAll();
+  }
+
+  @Get('search')
+  async search(@Query('name') name: string) {
+    return await this.bacteriaService.search(name);
   }
 
   @Get(':id')

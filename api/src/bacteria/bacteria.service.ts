@@ -11,6 +11,17 @@ export class BacteriaService {
     return await this.prisma.bacteria.findMany();
   }
 
+  async search(name: string) {
+    return await this.prisma.bacteria.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: 'insensitive',
+        },
+      },
+    });
+  }
+
   async create(data: BacteriaDto) {
     return await this.prisma.bacteria.create({ data });
   }
