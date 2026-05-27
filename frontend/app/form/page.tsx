@@ -6,25 +6,36 @@ import { redirect } from "next/navigation";
 async function createBacteria(formData: FormData) {
   "use server";
 
-  const name = formData.get("name");
-  const description = formData.get("description");
-  const gram = formData.get("gram");
+  try {
+    const name = formData.get("name");
+    const description = formData.get("description");
+    const gram = formData.get("gram");
 
-  await fetch(`${process.env.NEXT_PUBLIC_API_URL}/bacteria`, {
-    method: "POST",
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/bacteria`,
+      {
+        method: "POST",
 
-    headers: {
-      "Content-Type": "application/json",
-    },
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-    body: JSON.stringify({
-      name,
-      description,
-      gram,
-    }),
-  });
+        body: JSON.stringify({
+          name,
+          description,
+          gram,
+        }),
+      },
+    );
 
-  redirect("/bacteria");
+    if (!response.ok) {
+      throw new Error("Erro ao cadastrar bactéria");
+    }
+
+    redirect("/bacteria");
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export default function Form() {
