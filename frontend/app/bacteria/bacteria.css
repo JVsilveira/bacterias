@@ -23,25 +23,72 @@ h1 {
   overflow-y: scroll;
 }
 .bacteria-item {
+  border-radius: 8px;
+
   display: flex;
   flex-direction: column;
-  border-radius: 8px;
-  justify-content: center;
-  align-items: center;
+
   background-color: #cf94c6;
   border: 2px solid #ffffff;
+
   list-style-type: none;
+
   padding: 20px;
-  padding-bottom: 40px;
-  margin: 20px;
+  margin: 50px;
+
   max-width: 400px;
-  min-height: 200px;
-  overflow: hidden;
+
+  height: fit-content;
+
+  overflow-wrap: break-word;
   word-break: break-word;
+
+  overflow-x: hidden;
+
+  scrollbar-width: none;
 }
 
 ::-webkit-input-placeholder {
   color: rgb(255, 255, 255);
+}
+
+.button-delete {
+  background-color: #971919;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  width: 150px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.button-delete:hover {
+  background-color: #cb1818;
+}
+
+.button-edit {
+  background-color: #b18714;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 150px;
+  margin-bottom: 50px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.button-edit:hover {
+  background-color: rgb(214, 164, 28);
 }
 
 @media (max-width: 500px) {

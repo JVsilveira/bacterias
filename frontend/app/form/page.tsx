@@ -1,15 +1,15 @@
-import Link from "next/link";
-import "./form.css";
+import Link from "next/link"
+import "./form.css"
 
-import { redirect } from "next/navigation";
+import { redirect } from "next/navigation"
 
 async function createBacteria(formData: FormData) {
-  "use server";
+  "use server"
 
   try {
-    const name = formData.get("name");
-    const description = formData.get("description");
-    const gram = formData.get("gram");
+    const name = formData.get("name")
+    const description = formData.get("description")
+    const gram = formData.get("gram")
 
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/bacteria`,
@@ -26,15 +26,17 @@ async function createBacteria(formData: FormData) {
           gram,
         }),
       },
-    );
+    )
 
     if (!response.ok) {
-      throw new Error("Erro ao cadastrar bactéria");
+      throw new Error("Erro ao cadastrar bactéria")
+    } else {
+      alert("Bactéria cadastrada com sucesso!")
     }
 
-    redirect("/bacteria");
+    redirect("/bacteria")
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 }
 
@@ -73,5 +75,5 @@ export default function Form() {
         </div>
       </form>
     </div>
-  );
+  )
 }

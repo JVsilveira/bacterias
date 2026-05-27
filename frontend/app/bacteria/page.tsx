@@ -1,33 +1,37 @@
-import Link from "next/link";
-import "./bacteria.css";
-import SearchInput from "./searchInput";
+import Link from "next/link"
+import "./bacteria.css"
+import SearchInput from "./searchInput"
+import DeleteButton from "./deleteBacteria"
+import EditButton from "./editButton"
+import "../form/form.css"
+import "../home.css"
 
 interface Bacteria {
-  id: number;
-  name: string;
-  description: string;
-  gram: string;
+  id: number
+  name: string
+  description: string
+  gram: string
 }
 
 interface PageProps {
   searchParams: Promise<{
-    search?: string;
-  }>;
+    search?: string
+  }>
 }
 
 export default async function Bacteria({ searchParams }: PageProps) {
-  const params = await searchParams;
-  const search = params.search || "";
-  let url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria`;
+  const params = await searchParams
+  const search = params.search || ""
+  let url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria`
   if (search.trim() !== "") {
-    url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria/search?name=${search}`;
+    url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria/search?name=${search}`
   }
 
   const response = await fetch(url, {
     cache: "no-store",
-  });
+  })
 
-  const data: Bacteria[] = await response.json();
+  const data: Bacteria[] = await response.json()
 
   return (
     <div className="bacteria-container">
@@ -37,11 +41,14 @@ export default async function Bacteria({ searchParams }: PageProps) {
 
       <ul className="bacteria-list">
         {data.length > 0 ? (
-          data.map((bacterium) => (
+          data.map(bacterium => (
             <li key={bacterium.id} className="bacteria-item">
               <h2>{bacterium.name}</h2>
               <p>{bacterium.description}</p>
               <p>Gram: {bacterium.gram}</p>
+
+              <DeleteButton id={bacterium.id} />
+              <EditButton id={bacterium.id} />
             </li>
           ))
         ) : (
@@ -55,5 +62,5 @@ export default async function Bacteria({ searchParams }: PageProps) {
         </Link>
       </div>
     </div>
-  );
+  )
 }
