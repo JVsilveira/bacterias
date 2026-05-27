@@ -24,6 +24,9 @@ let BacteriaController = class BacteriaController {
     async findAll() {
         return await this.bacteriaService.findAll();
     }
+    async search(name) {
+        return await this.bacteriaService.search(name);
+    }
     async findOne(id) {
         return await this.bacteriaService.findOne(Number(id));
     }
@@ -44,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], BacteriaController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)('search'),
+    __param(0, (0, common_1.Query)('name')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], BacteriaController.prototype, "search", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),

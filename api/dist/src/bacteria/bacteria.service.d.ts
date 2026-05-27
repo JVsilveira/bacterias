@@ -9,6 +9,12 @@ export declare class BacteriaService {
         description: string;
         gram: string;
     }[]>;
+    search(name: string): Promise<{
+        id: number;
+        name: string;
+        description: string;
+        gram: string;
+    }[]>;
     create(data: BacteriaDto): Promise<{
         id: number;
         name: string;

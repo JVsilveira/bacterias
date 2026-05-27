@@ -20,6 +20,16 @@ let BacteriaService = class BacteriaService {
     async findAll() {
         return await this.prisma.bacteria.findMany();
     }
+    async search(name) {
+        return await this.prisma.bacteria.findMany({
+            where: {
+                name: {
+                    contains: name,
+                    mode: 'insensitive',
+                },
+            },
+        });
+    }
     async create(data) {
         return await this.prisma.bacteria.create({ data });
     }

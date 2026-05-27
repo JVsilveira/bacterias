@@ -9,6 +9,12 @@ export declare class BacteriaController {
         description: string;
         gram: string;
     }[]>;
+    search(name: string): Promise<{
+        id: number;
+        name: string;
+        description: string;
+        gram: string;
+    }[]>;
     findOne(id: string): Promise<{
         id: number;
         name: string;
