@@ -1,59 +1,57 @@
-"use client"
-
-import Link from "next/link"
-import "./bacteria.css"
-
-import { useEffect, useState } from "react"
+import Link from "next/link";
+import "./bacteria.css";
+import SearchInput from "./searchInput";
 
 interface Bacteria {
-  id: number
-  name: string
-  description: string
-  gram: string
+  id: number;
+  name: string;
+  description: string;
+  gram: string;
 }
 
-export default function Bacteria() {
-  const [data, setData] = useState<Bacteria[]>([])
-  const [loading, setLoading] = useState(true)
+interface PageProps {
+  searchParams: Promise<{
+    search?: string;
+  }>;
+}
 
-  useEffect(() => {
-    async function fetchBacteria() {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/bacteria`,
-        )
+export default async function Bacteria({ searchParams }: PageProps) {
+  const params = await searchParams;
 
-        const result = await response.json()
+  const search = params.search || "";
 
-        setData(result)
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setLoading(false)
-      }
-    }
+  let url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria`;
 
-    fetchBacteria()
-  }, [])
-
-  if (loading) {
-    return <p>Carregando...</p>
+  if (search.trim() !== "") {
+    url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria/search?name=${search}`;
   }
+
+  const response = await fetch(url, {
+    cache: "no-store",
+  });
+
+  const data: Bacteria[] = await response.json();
 
   return (
     <div className="bacteria-container">
       <h1 className="bac-title">Bactérias</h1>
 
+      <SearchInput initialValue={search} />
+
       <ul className="bacteria-list">
-        {data.map((bacterium: Bacteria) => (
-          <li key={bacterium.id} className="bacteria-item">
-            <h2>{bacterium.name}</h2>
+        {data.length > 0 ? (
+          data.map((bacterium) => (
+            <li key={bacterium.id} className="bacteria-item">
+              <h2>{bacterium.name}</h2>
 
-            <p>{bacterium.description}</p>
+              <p>{bacterium.description}</p>
 
-            <p>Gram: {bacterium.gram}</p>
-          </li>
-        ))}
+              <p>Gram: {bacterium.gram}</p>
+            </li>
+          ))
+        ) : (
+          <p>Nenhuma bactéria encontrada.</p>
+        )}
       </ul>
 
       <div className="container-button-bac">
@@ -62,5 +60,5 @@ export default function Bacteria() {
         </Link>
       </div>
     </div>
-  )
+  );
 }
