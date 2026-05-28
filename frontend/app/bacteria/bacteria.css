@@ -18,34 +18,29 @@ h1 {
   display: flex;
   flex-direction: column;
   padding: 0;
+  margin: 0;
+  overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  overflow-y: scroll;
+  align-items: center;
+  justify-content: flex-start;
 }
+
 .bacteria-item {
   border-radius: 8px;
-
   display: flex;
   flex-direction: column;
 
+  align-items: center;
   background-color: #cf94c6;
   border: 2px solid #ffffff;
-
   list-style-type: none;
-
   padding: 20px;
+  width: 400px;
   margin: 50px;
-
-  max-width: 400px;
-
-  height: fit-content;
-
+  height: auto;
   overflow-wrap: break-word;
   word-break: break-word;
-
-  overflow-x: hidden;
-
-  scrollbar-width: none;
 }
 
 ::-webkit-input-placeholder {
@@ -62,6 +57,7 @@ h1 {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  margin-top: 20px;
   margin: 5px;
   cursor: pointer;
   border-radius: 8px;
@@ -106,8 +102,8 @@ h1 {
     padding: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     white-space: normal;
     overflow: visible;
   }
