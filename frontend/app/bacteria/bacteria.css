@@ -19,11 +19,29 @@ h1 {
   flex-direction: column;
   padding: 0;
   margin: 0;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
   align-items: center;
   justify-content: flex-start;
+}
+
+.bacteria-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.bacteria-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.bacteria-list::-webkit-scrollbar-thumb {
+  background: #cf94c6;
+  border-radius: 10px;
+}
+
+.bacteria-list::-webkit-scrollbar-thumb:hover {
+  background: #b878ae;
 }
 
 .bacteria-item {
