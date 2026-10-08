@@ -15,7 +15,7 @@ export default function Error({ reset }: { reset: () => void }) {
   }
 
   return (
-    <div role="alert">
+    <div className="state-panel" role="alert">
       <p>Não foi possível carregar as bactérias. Tente novamente.</p>
       <button className="button-home" onClick={retry} disabled={pending}>
         {pending ? "CARREGANDO..." : "TENTAR NOVAMENTE"}

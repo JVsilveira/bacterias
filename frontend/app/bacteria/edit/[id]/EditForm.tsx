@@ -63,6 +63,7 @@ export default function EditForm({ bacteria }: EditFormProps) {
 
       <form onSubmit={handleSubmit} className="form">
         <input
+          aria-label="Nome"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -70,12 +71,14 @@ export default function EditForm({ bacteria }: EditFormProps) {
         />
 
         <textarea
+          aria-label="Descrição"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
 
         <select
+          aria-label="Gram"
           id="gram"
           name="gram"
           value={gram}

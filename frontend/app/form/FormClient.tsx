@@ -46,11 +46,7 @@ export default function FormClient() {
         </select>
 
         <div className="container-button-form">
-          <Link href="/">
-            <button type="button" className="button-home">
-              VOLTAR
-            </button>
-          </Link>
+          <Link href="/" className="button-home button-secondary">VOLTAR</Link>
 
           <button type="submit" className="button-home">
             ENVIAR

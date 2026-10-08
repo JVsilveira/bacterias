@@ -45,7 +45,7 @@ export default function SearchInput({ initialValue }: Props) {
         value={search}
         onChange={(event) => setSearch(event.target.value)}
       />
-      {pending ? <p role="status">Pesquisando...</p> : null}
+      {pending ? <p role="status" className="search-status">Pesquisando...</p> : null}
     </>
   );
 }

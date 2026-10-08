@@ -40,29 +40,29 @@ export default async function Bacteria({ searchParams }: PageProps) {
     <div className="bacteria-container">
       <h1 className="bac-title">Bactérias</h1>
 
-      <SearchInput initialValue={search} />
+      <div className="catalog-toolbar"><SearchInput initialValue={search} /></div>
 
       <ul className="bacteria-list">
         {data.length > 0 ? (
           data.map((bacterium) => (
             <li key={bacterium.id} className="bacteria-item">
               <h2>{bacterium.name}</h2>
-              <p>{bacterium.description}</p>
-              <p>Gram: {bacterium.gram}</p>
+              <p className="bacteria-description">{bacterium.description}</p>
+              <p className={`gram-badge ${bacterium.gram === "positiva" ? "gram-positive" : "gram-negative"}`}>Gram: {bacterium.gram}</p>
 
-              <DeleteButton id={bacterium.id} />
-              <EditButton id={bacterium.id} />
+              <div className="bacteria-actions">
+                <DeleteButton id={bacterium.id} />
+                <EditButton id={bacterium.id} />
+              </div>
             </li>
           ))
         ) : (
-          <p>Nenhuma bactéria encontrada.</p>
+          <li className="empty-state">Nenhuma bactéria encontrada.</li>
         )}
       </ul>
 
       <div className="container-button-bac">
-        <Link href="/">
-          <button className="button-home">VOLTAR</button>
-        </Link>
+        <Link href="/" className="button-home button-secondary">VOLTAR</Link>
       </div>
     </div>
   );

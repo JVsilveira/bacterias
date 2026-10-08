@@ -15,10 +15,10 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
-        <div className="app-container">
+        <main className="app-container">
           {children}
           <Toaster />
-        </div>
+        </main>
       </body>
     </html>
   );
