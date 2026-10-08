@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 interface Props {
   initialValue: string;
@@ -9,30 +9,43 @@ interface Props {
 
 export default function SearchInput({ initialValue }: Props) {
   const router = useRouter();
-
   const [search, setSearch] = useState(initialValue);
+  const [previousValue, setPreviousValue] = useState(initialValue);
+  const [pending, startTransition] = useTransition();
+  const [submitted, setSubmitted] = useState(initialValue);
 
-  function handleSearch(event: React.ChangeEvent<HTMLInputElement>) {
-    const value = event.target.value;
-
-    setSearch(value);
-
-    const params = new URLSearchParams();
-
-    if (value.trim() !== "") {
-      params.set("search", value);
-    }
-
-    router.push(`/bacteria?${params.toString()}`);
+  // Synchronize back/forward navigation without replacing newer typed text.
+  if (previousValue !== initialValue) {
+    setPreviousValue(initialValue);
+    if (initialValue !== submitted) setSearch(initialValue);
   }
 
+  useEffect(() => {
+    if (search === initialValue) return;
+    const timeout = setTimeout(() => {
+      const params = new URLSearchParams();
+      if (search.trim()) params.set("search", search);
+      setSubmitted(search);
+      startTransition(() => {
+        router.replace(`/bacteria${params.size ? `?${params}` : ""}`, {
+          scroll: false,
+        });
+      });
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, [search, initialValue, router]);
+
   return (
-    <input
-      type="search"
-      placeholder="Pesquisar..."
-      className="search-input"
-      value={search}
-      onChange={handleSearch}
-    />
+    <>
+      <input
+        type="search"
+        aria-label="Pesquisar bactérias"
+        placeholder="Pesquisar..."
+        className="search-input"
+        value={search}
+        onChange={(event) => setSearch(event.target.value)}
+      />
+      {pending ? <p role="status">Pesquisando...</p> : null}
+    </>
   );
 }

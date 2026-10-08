@@ -68,6 +68,8 @@ h1 {
 }
 
 .button-edit {
+  box-sizing: border-box;
+  font-family: inherit;
   background-color: #b18714;
   border: none;
   color: white;

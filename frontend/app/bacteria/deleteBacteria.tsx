@@ -1,6 +1,7 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { deleteBacteria } from "./actions";
 
 import { toast } from "sonner";
 
@@ -9,41 +10,37 @@ interface DeleteBacteriaProps {
 }
 
 export default function DeleteBacteria({ id }: DeleteBacteriaProps) {
-  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   async function handleDelete() {
+    if (loading) return;
     const confirmed = confirm("Tem certeza que deseja excluir esta bactéria?");
 
     if (!confirmed) {
       return;
     }
 
+    setLoading(true);
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/bacteria/${id}`,
-        {
-          method: "DELETE",
-        },
-      );
-
-      if (!response.ok) {
-        toast.error("Erro ao excluir bactéria");
+      const result = await deleteBacteria(id);
+      if (result.error) {
+        toast.error(result.error);
         return;
       }
 
       toast.success("Bactéria excluída com sucesso!");
-
-      router.refresh();
     } catch (error) {
       console.log(error);
 
       toast.error("Erro interno do servidor");
+    } finally {
+      setLoading(false);
     }
   }
 
   return (
-    <button className="button-delete" onClick={handleDelete}>
-      EXCLUIR
+    <button className="button-delete" onClick={handleDelete} disabled={loading}>
+      {loading ? "EXCLUINDO..." : "EXCLUIR"}
     </button>
   );
 }

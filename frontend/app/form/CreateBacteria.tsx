@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath, updateTag } from "next/cache";
+
 import { createBacteriaSchema } from "../[schemas]/bacteriaSchema";
 
 export async function createBacteria(formData: FormData) {
@@ -22,6 +24,7 @@ export async function createBacteria(formData: FormData) {
       `${process.env.NEXT_PUBLIC_API_URL}/bacteria`,
       {
         method: "POST",
+        signal: AbortSignal.timeout(15000),
 
         headers: {
           "Content-Type": "application/json",
@@ -38,6 +41,9 @@ export async function createBacteria(formData: FormData) {
         error: responseData.message || "Erro ao cadastrar bactéria",
       };
     }
+
+    updateTag("bacteria");
+    revalidatePath("/bacteria");
 
     return {
       success: true,

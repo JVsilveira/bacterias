@@ -24,12 +24,15 @@ export default async function Bacteria({ searchParams }: PageProps) {
   const search = params.search || "";
   let url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria`;
   if (search.trim() !== "") {
-    url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria/search?name=${search}`;
+    url = `${process.env.NEXT_PUBLIC_API_URL}/bacteria/search?name=${encodeURIComponent(search)}`;
   }
 
   const response = await fetch(url, {
-    cache: "no-store",
+    next: { revalidate: 30, tags: ["bacteria"] },
+    signal: AbortSignal.timeout(15000),
   });
+
+  if (!response.ok) throw new Error("Não foi possível carregar as bactérias");
 
   const data: Bacteria[] = await response.json();
 

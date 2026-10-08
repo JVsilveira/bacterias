@@ -1,21 +1,10 @@
-"use client"
+import Link from "next/link";
+import "./bacteria.css";
 
-import { useRouter } from "next/navigation"
-import "../bacteria/bacteria.css"
-
-interface EditBacteriaProps {
-  id: number
-}
-
-export default function EditButton({ id }: EditBacteriaProps) {
-  const router = useRouter()
-
+export default function EditButton({ id }: { id: number }) {
   return (
-    <button
-      className="button-edit"
-      onClick={() => router.push(`/bacteria/edit/${id}`)}
-    >
+    <Link className="button-edit" href={`/bacteria/edit/${id}`}>
       EDITAR
-    </button>
-  )
+    </Link>
+  );
 }

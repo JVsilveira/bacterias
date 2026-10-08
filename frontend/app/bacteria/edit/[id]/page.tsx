@@ -1,3 +1,5 @@
+import { notFound } from "next/navigation";
+
 import EditForm from "./EditForm"
 
 interface Bacteria {
@@ -20,8 +22,12 @@ export default async function EditPage({ params }: PageProps) {
     `${process.env.NEXT_PUBLIC_API_URL}/bacteria/${id}`,
     {
       cache: "no-store",
+      signal: AbortSignal.timeout(15000),
     },
   )
+
+  if (response.status === 404) notFound();
+  if (!response.ok) throw new Error("Não foi possível carregar a bactéria");
 
   const bacteria: Bacteria = await response.json()
 

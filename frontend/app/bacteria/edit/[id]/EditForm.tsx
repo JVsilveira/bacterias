@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
 
-import { createBacteriaSchema } from "../../../[schemas]/bacteriaSchema";
+import { updateBacteria } from "../../actions";
 
 import "../../../form/form.css";
 import "../../../home.css";
@@ -36,47 +36,18 @@ export default function EditForm({ bacteria }: EditFormProps) {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const validatedData = createBacteriaSchema.safeParse({
-      name,
-      description,
-      gram,
-    });
-
-    if (!validatedData.success) {
-      toast.error(validatedData.error.issues[0].message);
-
-      return;
-    }
-
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/bacteria/${bacteria.id}`,
-        {
-          method: "PATCH",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify(validatedData.data),
-        },
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        toast.error(data.message || "Erro ao atualizar bactéria");
-
+      const result = await updateBacteria(bacteria.id, { name, description, gram });
+      if (result.error) {
+        toast.error(result.error);
         return;
       }
 
       toast.success("Bactéria atualizada com sucesso!");
 
       router.push("/bacteria");
-
-      router.refresh();
     } catch (error) {
       console.log(error);
 
