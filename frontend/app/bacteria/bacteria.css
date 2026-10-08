@@ -19,18 +19,35 @@ h1 {
   flex-direction: column;
   padding: 0;
   margin: 0;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
   align-items: center;
   justify-content: flex-start;
+}
+
+.bacteria-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.bacteria-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.bacteria-list::-webkit-scrollbar-thumb {
+  background: #cf94c6;
+  border-radius: 10px;
+}
+
+.bacteria-list::-webkit-scrollbar-thumb:hover {
+  background: #b878ae;
 }
 
 .bacteria-item {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-
   align-items: center;
   background-color: #cf94c6;
   border: 2px solid #ffffff;
@@ -41,6 +58,7 @@ h1 {
   height: auto;
   overflow-wrap: break-word;
   word-break: break-word;
+  white-space: pre-line;
 }
 
 ::-webkit-input-placeholder {
@@ -90,6 +108,9 @@ h1 {
 }
 
 @media (max-width: 500px) {
+  h2 {
+    text-align: center;
+  }
   .bacteria-container {
     width: 100%;
     padding: 10px;
@@ -106,7 +127,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    white-space: normal;
+    white-space: pre-line;
     overflow: visible;
   }
 }
